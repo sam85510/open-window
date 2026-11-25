@@ -1,0 +1,108 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>手機叫電腦開視窗</title>
+<meta name="description" content="人在外面，手機打一句話，家裡 Mac 就開好一個完整的 Claude Code 視窗。複製一段話貼給 Claude，它幫你裝。">
+<meta property="og:title" content="手機叫電腦開完整的 Claude 視窗｜設定步驟">
+<meta property="og:description" content="複製一段話貼給電腦上的 Claude，它幫你裝好。之後在外面用手機也能開新視窗。">
+<meta property="og:image" content="https://sam85510.github.io/open-window/og.jpg">
+<meta property="og:url" content="https://sam85510.github.io/open-window/">
+<meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&display=swap">
+<style>
+:root{--y:#FFD60A;--k:#000;--bg:#1d1d1b;--c:#2B2B28;--w:#f4f2ea;--or:#D97757;--mu:#b9b7ae;color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--w);font-family:-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;line-height:1.75;font-size:17px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+main{max-width:640px;margin:0 auto;padding:28px 16px 60px}
+.serif{font-family:"Noto Serif TC","Songti TC",serif}
+.hl{display:inline;background:var(--y);color:var(--k);font-weight:900;padding:.08em .28em;line-height:1.55;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.y{color:var(--y);font-weight:700}
+h1{font-size:clamp(26px,7.4vw,36px);line-height:1.45;margin:8px 0 14px}
+h2{font-size:24px;margin:44px 0 14px;line-height:1.4}
+h3{font-size:18px;margin:22px 0 8px;color:var(--y)}
+.lead{font-size:18px;font-weight:700}
+.hero{width:100%;border-radius:10px;margin:18px 0 4px;display:block}
+.box{background:rgba(20,20,18,.85);border:1px solid #3d3d39;border-radius:12px;padding:14px 16px;margin:10px 0}
+ol.list{padding-left:0;list-style:none;counter-reset:n;margin:0}
+ol.list li{counter-increment:n;position:relative;padding:12px 14px 12px 52px;background:rgba(20,20,18,.85);border:1px solid #3d3d39;border-radius:12px;margin:10px 0}
+ol.list li:before{content:counter(n);position:absolute;left:14px;top:12px;width:26px;height:26px;border-radius:7px;background:var(--y);color:#000;font-weight:900;text-align:center;line-height:26px;font-size:15px}
+code{background:#33332f;border-radius:5px;padding:1px 6px;font-size:15px}
+.win{background:#f7f6f2;color:#1d1d1b;border-radius:14px;padding:12px 14px 14px;box-shadow:0 10px 30px rgba(0,0,0,.4);margin:14px 0}
+.win .t{font-size:13px;color:#8a8880;margin-bottom:6px}
+.win pre{white-space:pre-wrap;word-break:break-word;overflow-wrap:anywhere;font:13px/1.7 ui-monospace,Menlo,monospace;margin:0;max-height:260px;overflow:auto;color:#2b2b28;transition:max-height .35s ease}
+.win pre.open{max-height:2000px}
+.send{display:flex;gap:10px;align-items:center;justify-content:space-between;margin-top:10px;border-top:1px solid #e3e1d9;padding-top:10px;flex-wrap:wrap}
+.send button{font:inherit;font-weight:800;font-size:15px;border:none;border-radius:10px;padding:10px 16px;cursor:pointer;transition:transform .1s,background .2s}
+.send button:active{transform:scale(.96)}
+.cp{background:var(--or);color:#fff}.cp.ok{background:#3b8b4b}
+.more{background:transparent;color:#6b6a65;border:1px solid #d6d3c9 !important}
+.note li{margin:6px 0}
+.foot{display:flex;align-items:center;gap:10px;margin-top:48px;color:#d8d6ce;font-weight:600;font-size:15px}
+.foot img{height:20px}
+button:focus-visible{outline:2px solid var(--y);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.win pre{transition:none}}
+</style></head><body><main>
+<img src="logo-w.svg" alt="Sam在嗎" style="height:22px">
+<h1 class="serif">人在外面，手機打一句話<br><span class="hl">電腦自己開 Claude Code</span></h1>
+<p class="lead">開出來的是電腦版完整視窗，手機還接得回去。</p>
+<img class="hero" src="hero.jpg" alt="完整視窗能做的三件事：操作電腦畫面、再開新視窗、手機接得回去">
+
+<h2 class="serif"><span class="hl">開始前要有</span></h2>
+<ol class="list">
+<li>一台 Mac，裝好 Claude 桌面 App，能打開「Code」分頁。</li>
+<li>Claude 付費方案（Pro 以上）。手機和電腦的 Claude App 要登入<span class="y">同一個帳號</span>。</li>
+<li>終端機版 Claude Code。打開 Mac 的「終端機」，輸入 <code>claude --version</code>，看到版本號就代表裝好了。還沒裝的話，請電腦上的 Claude 幫你裝。</li>
+<li>終端機裡的 <code>claude</code> 要用同一個 Claude 帳號登入過一次。用 API 金鑰登入會另外計費。</li>
+<li>在桌面 App 的 Code 視窗打開「遠端控制」，先確認手機 Claude App 的 Code 列表看得到這個視窗。</li>
+<li>想讓新視窗操作電腦畫面，先在 Mac 上開好 Claude 操作電腦需要的權限。</li>
+</ol>
+
+<h2 class="serif"><span class="hl">步驟一｜在電腦裝開窗小程式</span></h2>
+<div class="box"><b>這段會做什麼</b><br>Claude 會在 Mac 上新增一支開窗小程式，先備份 Claude 的設定檔，再到檔案最後加一段開窗規則。<br><br>想復原：請 Claude 刪掉這支小程式，再把設定檔換回備份。<br><br><span class="y">這是官方沒公開的做法，Claude App 改版後可能會失效。</span></div>
+<p>在電腦上開一個 Claude Code 視窗。下面這段是給 Claude 看的，<b>整段複製貼上就好</b>。</p>
+<div class="win"><div class="t">貼給電腦上的 Claude</div><pre id="pr">幫我裝「手機叫電腦開視窗」：
+1. 建一個檔 ~/.claude/tools/開桌面視窗.sh，內容如下，存好後 chmod +x：
+#!/bin/sh
+# 手機遠端連進來時，App 不讓 AI 直接開新視窗；這支在電腦上開一個桌面 App 視窗，手機看得到。
+# 用法：sh ~/.claude/tools/開桌面視窗.sh &quot;&lt;資料夾完整路徑&gt;&quot;
+DIR=&quot;$1&quot;; [ -d &quot;$DIR&quot; ] || { echo &quot;資料夾不存在：$DIR&quot;; exit 1; }
+CL=$(command -v claude || ls &quot;$HOME/.local/bin/claude&quot; 2&gt;/dev/null || ls &quot;$HOME/.claude/local/claude&quot; 2&gt;/dev/null)
+[ -n &quot;$CL&quot; ] || { echo &quot;找不到 claude 指令：要先裝終端機版 Claude Code&quot;; exit 1; }
+U=$(uuidgen | tr A-Z a-z)
+cd &quot;$DIR&quot; &amp;&amp; &quot;$CL&quot; -p &quot;這是新開的視窗，下一則才是交代。只回：收到&quot; --session-id &quot;$U&quot; --model haiku &gt;/dev/null 2&gt;&amp;1 || { echo &quot;建立失敗&quot;; exit 1; }
+open -g &quot;claude://resume?session=$U&quot;
+sleep 3
+echo &quot;local_$U&quot;
+2. 在 ~/.claude/CLAUDE.md 最後加一段（原本的內容不要動，改之前先備份成 CLAUDE.md.bak）：
+## 手機叫電腦開視窗
+我從手機連回電腦，請你開新視窗時，App 會擋。請改跑 sh ~/.claude/tools/開桌面視窗.sh &quot;&lt;資料夾完整路徑&gt;&quot;，它會印出新視窗編號。
+先打開新視窗的手機連線（遠端控制）。把新視窗的模型設成跟你一樣，改好標題，再把我的原話傳過去。
+如果新視窗卡在等我按「允許」，就跟我說。不要叫我回電腦自己開。
+3. 裝好跑一次測試：sh ~/.claude/tools/開桌面視窗.sh &quot;$HOME&quot;，看電腦上的 Claude App 左邊的視窗列表有沒有多一個視窗，跟我說結果。</pre>
+<div class="send"><button class="more" id="more">展開全文</button><button class="cp" id="cp">複製這段</button></div></div>
+<p>裝好後，看電腦上 Claude App 左邊的視窗列表，有沒有多一個視窗。</p>
+<div class="box">裝好後，<span class="y">先開一個新的 Code 視窗</span>、打開「遠端控制」，再用手機連進去。Claude 只會在視窗一開始讀設定檔裡的規則。</div>
+<p>第一次從手機試，建議先建一個空白的「開窗測試」資料夾來試。</p>
+
+<h2 class="serif"><span class="hl">步驟二｜在手機請 Claude 開新視窗</span></h2>
+<p>打開手機上的 Claude App，從 Code 列表連回電腦的視窗，輸入：</p>
+<div class="box"><b>「幫我開一個新視窗，做○○」</b><br><small style="color:var(--mu)">把○○換成你要它做的事。第一次可以說：「幫我在『開窗測試』資料夾開一個新視窗，請它回我一句『測試成功』」</small></div>
+
+<h2 class="serif"><span class="hl">步驟三｜用手機接回新視窗</span></h2>
+<p>電腦開出新視窗後，回到手機的 Code 列表。看到新視窗就點進去，可以看它有沒有收到你的交代，也能繼續跟它說話。</p>
+
+<h2 class="serif"><span class="hl">先講清楚</span></h2>
+<ul class="note">
+<li>目前只在 Mac 上測過。</li>
+<li>電腦要開著、不能睡著，手機才連得回去。</li>
+<li>新視窗用一般權限。碰到需要按「允許」的地方，手機上會跳出提示，你按了 Claude 才會繼續。</li>
+<li>開新視窗時，Claude 會先只回一句「收到」，用量很少。</li>
+</ul>
+<p>有問題，私訊 <a href="https://www.instagram.com/sam.reels.tw/" style="color:var(--y)">@sam.reels.tw</a>。</p>
+<div class="foot"><img src="logo-w.svg" alt="Sam在嗎"> @sam.reels.tw</div>
+</main>
+<script>
+const pr=document.getElementById("pr"),cp=document.getElementById("cp"),mo=document.getElementById("more");
+mo.onclick=()=>{const o=pr.classList.toggle("open");mo.textContent=o?"收起":"展開全文"};
+cp.onclick=async()=>{const t=pr.textContent;let ok=false;
+ try{await navigator.clipboard.writeText(t);ok=true}catch(e){
+  const a=document.createElement("textarea");a.value=t;document.body.appendChild(a);a.select();try{ok=document.execCommand("copy")}catch(_){}a.remove()}
+ cp.textContent=ok?"已複製 ✓":"請長按上面文字複製";cp.classList.toggle("ok",ok);setTimeout(()=>{cp.textContent="複製這段";cp.classList.remove("ok")},2200)};
+</script></body></html>
